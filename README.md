@@ -59,11 +59,10 @@ Req body:
   "role": "admin"
 }```
 
-````
 
 Req Response:
 
-`````{
+```{
 "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5ZWZkYmJjOWUwY2Y5OWRkMmVlMDRjNSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3NzMyNzAzNiwiZXhwIjoxNzc3OTMxODM2fQ.MI2IJUlKTd5QReKz49CgD5j3t6PX6ixCyR-hQiiYIXo"
 }```
 
@@ -73,18 +72,19 @@ Req Response:
 POST http://localhost:5000/api/auth/register
 Req body:
 
-````{
+```{
   "name": "Keshav Pandey",
   "email": "keshav@gmail.com",
   "password": "employee",
   "role": "employee"
 }```
 
-`````
+
 
 Req Response:
 
-````{
+```{
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5ZWZkYzEzOWUwY2Y5OWRkMmVlMDRjNiIsInJvbGUiOiJlbXBsb3llZSIsImlhdCI6MTc3NzMyNzEyMywiZXhwIjoxNzc3OTMxOTIzfQ.7cd2qz8rKK_Pw0jhCdLmVYGZLoSATKrPQ3bMU65P0xI"
 }```
+
 ````
