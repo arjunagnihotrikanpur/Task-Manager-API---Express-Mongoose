@@ -1,90 +1,258 @@
-# Task Managment API
+# 🚀 Task Management API
 
-This API was built to assign tasks to users. There are two roles - Admin, Employee
+A role-based Task Management API built with **Node.js, Express, MongoDB, and JWT authentication**.
 
-## Permissions:
+This API allows admins to assign tasks and employees to manage their assigned tasks securely.
 
-### Admin:
+---
 
-- Create & Assign Tasks
-- Delete Tasks
-- View ALL Tasks
+## 📌 Features
 
-### Employee:
+- 🔐 JWT Authentication
+- 👥 Role-Based Access Control (Admin / Employee)
+- 🧾 Task Assignment System
+- 🛡️ Protected Routes using Middleware
+- ⚙️ RESTful API Design
 
-- View tasks assigned to THEM ONLY
-- Mark those tasks as pending/completed (Default: pending)
+---
 
-## Setup Instructions:
+## 👤 User Roles & Permissions
 
-### Run the following commands
+### 🧑‍💼 Admin
 
-`git clone [repo-url]`
-`cd taskmanagerapi`
-`npm install`
+- Create & assign tasks
+- View all tasks
+- Delete tasks
 
-### Create a new file called `.env` at the project root
+### 👨‍💻 Employee
 
-#### ENV File Contents:
+- View only assigned tasks
+- Update task status (pending/completed)
 
-`MONGO_URI=[Place the mongoDB Connection URL Here]`
-`JWT_SECRET=[Place your json web token secret key here]`
-`PORT=[Place the production PORT here]`
+---
 
-## Running in development mode:
+## 🛠️ Tech Stack
 
-Run the command: `npm run dev`
+- Node.js
+- Express.js
+- MongoDB + Mongoose
+- JWT (Authentication)
+- bcrypt (Password Hashing)
 
-## Running in production mode:
+---
 
-Run the command: `npm start`
+## ⚙️ Setup Instructions
 
-## Route Information:
+### 1️⃣ Clone the Repository
 
-(http://localhost:5000) has been included in all route demo's. In a real condition, you will replace them with your actual production/localhost URL
+```bash
+git clone <your-repo-url>
+cd taskmanagerapi
+```
 
-### Route to Check API is working or not:
+---
 
+### 2️⃣ Install Dependencies
+
+```bash
+npm install
+```
+
+---
+
+### 3️⃣ Create `.env` File
+
+Create a `.env` file in the root directory:
+
+```env
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_secret_key
+PORT=5000
+```
+
+---
+
+## ▶️ Running the Server
+
+### Development Mode
+
+```bash
+npm run dev
+```
+
+### Production Mode
+
+```bash
+npm start
+```
+
+---
+
+## 🌐 Base URL
+
+```
 http://localhost:5000/api
+```
 
-### Create a user (ADMIN)
+---
 
-POST http://localhost:5000/api/auth/register
-Req body:
+## 🧪 API Routes
 
-````{
+---
+
+### 🔹 Health Check
+
+**GET** `/api`
+
+Check if API is running.
+
+---
+
+## 🔐 Authentication Routes
+
+---
+
+### 📝 Register (Admin / Employee)
+
+**POST** `/api/auth/register`
+
+#### Request Body:
+
+```json
+{
   "name": "Arjun Agnihotri",
   "email": "arjun@gmail.com",
-  "password": "admin",
+  "password": "admin123",
   "role": "admin"
-}```
+}
+```
 
+#### Response:
 
-Req Response:
+```json
+{
+  "token": "your_jwt_token"
+}
+```
 
-```{
-"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5ZWZkYmJjOWUwY2Y5OWRkMmVlMDRjNSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3NzMyNzAzNiwiZXhwIjoxNzc3OTMxODM2fQ.MI2IJUlKTd5QReKz49CgD5j3t6PX6ixCyR-hQiiYIXo"
-}```
+---
 
+### 🔑 Login
 
-### Create a user (EMPLOYEE)
+**POST** `/api/auth/login`
 
-POST http://localhost:5000/api/auth/register
-Req body:
+#### Request Body:
 
-```{
-  "name": "Keshav Pandey",
-  "email": "keshav@gmail.com",
-  "password": "employee",
-  "role": "employee"
-}```
+```json
+{
+  "email": "arjun@gmail.com",
+  "password": "admin123"
+}
+```
 
+#### Response:
 
+```json
+{
+  "token": "your_jwt_token"
+}
+```
 
-Req Response:
+---
 
-```{
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5ZWZkYzEzOWUwY2Y5OWRkMmVlMDRjNiIsInJvbGUiOiJlbXBsb3llZSIsImlhdCI6MTc3NzMyNzEyMywiZXhwIjoxNzc3OTMxOTIzfQ.7cd2qz8rKK_Pw0jhCdLmVYGZLoSATKrPQ3bMU65P0xI"
-}```
+## 📌 Task Routes
 
-````
+> ⚠️ All routes below require Authorization Header:
+
+```
+Authorization: Bearer <token>
+```
+
+---
+
+### 🧑‍💼 Admin Routes
+
+---
+
+#### ➕ Create Task
+
+**POST** `/api/tasks`
+
+```json
+{
+  "title": "Fix Bug",
+  "description": "Fix login issue",
+  "assignedTo": "USER_ID"
+}
+```
+
+---
+
+#### 📋 Get All Tasks
+
+**GET** `/api/tasks`
+
+---
+
+#### ❌ Delete Task
+
+**DELETE** `/api/tasks/:id`
+
+---
+
+### 👨‍💻 Employee Routes
+
+---
+
+#### 📥 Get My Tasks
+
+**GET** `/api/tasks/me`
+
+---
+
+#### 🔄 Update Task Status
+
+**PATCH** `/api/tasks/:id`
+
+```json
+{
+  "status": "completed"
+}
+```
+
+---
+
+## ❗ Error Handling
+
+Common responses:
+
+- `401` → Unauthorized (No/Invalid Token)
+- `403` → Forbidden (Access Denied)
+- `400` → Bad Request
+- `404` → Resource Not Found
+
+---
+
+## 🧠 Future Improvements
+
+- Input validation (Joi / Zod)
+- Refresh Tokens & Logout system
+- Rate limiting (security)
+- Pagination & filtering
+- Logging system (Winston)
+- Docker support
+- Deployment (AWS / VPS)
+
+---
+
+## 📄 License
+
+This project is open-source and available under the MIT License.
+
+---
+
+## 👨‍💻 Author
+
+**Arjun Agnihotri**
+
+---
